@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProGD</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:#000;
+  color:#fff;
+  font-family:Inter,sans-serif;
+  overflow-x:hidden;
+}
+
+/* ================= CURSOR GLOW ================= */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(255,255,255,.10),transparent 260px);
+  pointer-events:none;
+}
+
+/* ================= HERO ================= */
+.hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:30px;
+  position:relative;
+}
+
+.avatar{
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid rgba(255,255,255,.2);
+}
+
+h1{
+  font-size:3.5rem;
+  font-weight:900;
+  margin-top:20px;
+}
+
+p{color:#aaa;margin-top:6px}
+
+/* ================= BOUNCING ARROW ================= */
+.arrow{
+  position:absolute;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%);
+  animation:bounce 1.5s infinite;
+  opacity:.7;
+}
+
+@keyframes bounce{
+  50%{transform:translate(-50%,10px)}
+}
+
+/* ================= SECTION ================= */
+.section{
+  padding:70px 20px;
+}
+
+.title{
+  text-align:center;
+  font-size:2rem;
+  margin-bottom:25px;
+}
+
+.grid{
+  max-width:900px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:18px;
+  padding:25px;
+  text-align:center;
+}
+
+.value{
+  font-size:2.3rem;
+  font-weight:800;
+}
+
+.small .value{font-size:1.5rem}
+
+.label{
+  color:#aaa;
+  margin-top:5px;
+}
+
+/* ================= BUTTONS ================= */
+.links{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+a.btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:22px 28px;
+  font-size:1.1rem;
+  color:#fff;
+  text-decoration:none;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.05);
+  transition:.25s;
+  min-width:200px;
+}
+
+a.btn:hover{transform:translateY(-4px)}
+
+/* ================= FOOTER ================= */
+footer{
+  text-align:center;
+  padding:30px;
+  color:#777;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+
+footer a{
+  color:#fff;
+  font-weight:700;
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+
+  <!-- PROFILBILD FIX -->
+  <img class="avatar"
+       src="https://cdn.discordapp.com/attachments/1419661924974592083/1512805405749809292/ChatGPT_Image_Jun_6_2026_03_08_26_PM.png?ex=6a256d53&is=6a241bd3&hm=bcb6e89221ba2794981a7514a9282c962603bd85f2fe4fb0f2d84c569459788c&"
+       alt="Profile">
+
+  <h1>ProGD</h1>
+
+  <p>A wannabe gd pro</p>
+  <p>Hardest: Sonic Wave</p>
+  <p>GOING FOR TARTARUS</p>
+
+  <!-- SPRINGENDER PFEIL -->
+  <div class="arrow">↓</div>
+</div>
+
+<!-- TIKTOK -->
+<div class="section">
+  <div class="title">TikTok Stats</div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="value" id="followers">0</div>
+      <div class="label">Followers</div>
+    </div>
+
+    <div class="card">
+      <div class="value" id="likes">0</div>
+      <div class="label">Likes</div>
+    </div>
+  </div>
+</div>
+
+<!-- WEBSITE -->
+<div class="section">
+  <div class="title">Website Stats</div>
+
+  <div class="grid">
+    <div class="card small">
+      <div class="value" id="visits">0</div>
+      <div class="label">Visits</div>
+    </div>
+  </div>
+</div>
+
+<!-- LINKS -->
+<div class="section">
+  <div class="links">
+
+    <!-- FIXED TIKTOK ACCOUNT -->
+    <a class="btn" href="https://www.tiktok.com/@ieatmyownkids361">
+      TikTok
+    </a>
+
+    <a class="btn" href="https://discord.gg/SeED4mgCp">
+      Discord
+    </a>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  Made with ♥ by <a href="https://discord.com/users/1290636640678576172">a.j</a>
+</footer>
+
+<script>
+
+/* CURSOR GLOW */
+document.addEventListener("mousemove",e=>{
+  document.documentElement.style.setProperty("--x",e.clientX+"px");
+  document.documentElement.style.setProperty("--y",e.clientY+"px");
+});
+
+/* COUNTER ANIMATION */
+function animate(id,target){
+  const el=document.getElementById(id);
+  let start=0;
+  let t0=performance.now();
+
+  function frame(t){
+    let p=Math.min((t-t0)/1200,1);
+    el.textContent=Math.floor(start+(target-start)*p).toLocaleString();
+    if(p<1)requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+/* VISITS (REAL DEVICE BASED) */
+let visits=localStorage.getItem("visits")||0;
+visits=parseInt(visits)+1;
+localStorage.setItem("visits",visits);
+animate("visits",visits);
+
+/* STABLE TIKTOK VALUES (ACCOUNT FIXED) */
+animate("followers",12800);
+animate("likes",340000);
+
+</script>
+
+</body>
+</html>
