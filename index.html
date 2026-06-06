@@ -17,25 +17,25 @@ body{
   overflow-x:hidden;
 }
 
-/* ================= CURSOR GLOW ================= */
+/* CURSOR GLOW */
 body::before{
   content:"";
   position:fixed;
   inset:0;
-  background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(255,255,255,.10),transparent 260px);
+  background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(255,255,255,.12),transparent 280px);
   pointer-events:none;
 }
 
-/* ================= HERO ================= */
+/* HERO */
 .hero{
   min-height:100vh;
   display:flex;
   flex-direction:column;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   text-align:center;
-  padding:30px;
   position:relative;
+  padding:30px;
 }
 
 .avatar{
@@ -54,21 +54,22 @@ h1{
 
 p{color:#aaa;margin-top:6px}
 
-/* ================= BOUNCING ARROW ================= */
+/* BIGGER ARROW */
 .arrow{
   position:absolute;
   bottom:25px;
   left:50%;
   transform:translateX(-50%);
-  animation:bounce 1.5s infinite;
-  opacity:.7;
+  font-size:3.5rem; /* <- größer gemacht */
+  animation:bounce 1.3s infinite;
+  opacity:.8;
 }
 
 @keyframes bounce{
-  50%{transform:translate(-50%,10px)}
+  50%{transform:translate(-50%,14px)}
 }
 
-/* ================= SECTION ================= */
+/* SECTION */
 .section{
   padding:70px 20px;
 }
@@ -100,14 +101,12 @@ p{color:#aaa;margin-top:6px}
   font-weight:800;
 }
 
-.small .value{font-size:1.5rem}
-
 .label{
   color:#aaa;
   margin-top:5px;
 }
 
-/* ================= BUTTONS ================= */
+/* LINKS */
 .links{
   display:flex;
   justify-content:center;
@@ -116,23 +115,21 @@ p{color:#aaa;margin-top:6px}
 }
 
 a.btn{
-  display:flex;
-  align-items:center;
-  justify-content:center;
   padding:22px 28px;
-  font-size:1.1rem;
-  color:#fff;
-  text-decoration:none;
   border-radius:14px;
   border:1px solid rgba(255,255,255,.15);
   background:rgba(255,255,255,.05);
-  transition:.25s;
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
   min-width:200px;
+  text-align:center;
+  transition:.25s;
 }
 
 a.btn:hover{transform:translateY(-4px)}
 
-/* ================= FOOTER ================= */
+/* FOOTER */
 footer{
   text-align:center;
   padding:30px;
@@ -153,10 +150,8 @@ footer a{
 <!-- HERO -->
 <div class="hero">
 
-  <!-- PROFILBILD FIX -->
   <img class="avatar"
-       src="https://cdn.discordapp.com/attachments/1419661924974592083/1512805405749809292/ChatGPT_Image_Jun_6_2026_03_08_26_PM.png?ex=6a256d53&is=6a241bd3&hm=bcb6e89221ba2794981a7514a9282c962603bd85f2fe4fb0f2d84c569459788c&"
-       alt="Profile">
+       src="https://cdn.discordapp.com/attachments/1419661924974592083/1512805405749809292/ChatGPT_Image_Jun_6_2026_03_08_26_PM.png">
 
   <h1>ProGD</h1>
 
@@ -164,7 +159,6 @@ footer a{
   <p>Hardest: Sonic Wave</p>
   <p>GOING FOR TARTARUS</p>
 
-  <!-- SPRINGENDER PFEIL -->
   <div class="arrow">↓</div>
 </div>
 
@@ -190,7 +184,7 @@ footer a{
   <div class="title">Website Stats</div>
 
   <div class="grid">
-    <div class="card small">
+    <div class="card">
       <div class="value" id="visits">0</div>
       <div class="label">Visits</div>
     </div>
@@ -200,16 +194,8 @@ footer a{
 <!-- LINKS -->
 <div class="section">
   <div class="links">
-
-    <!-- FIXED TIKTOK ACCOUNT -->
-    <a class="btn" href="https://www.tiktok.com/@ieatmyownkids361">
-      TikTok
-    </a>
-
-    <a class="btn" href="https://discord.gg/SeED4mgCp">
-      Discord
-    </a>
-
+    <a class="btn" href="https://www.tiktok.com/@ieatmyownkids361">TikTok</a>
+    <a class="btn" href="https://discord.gg/SeED4mgCp">Discord</a>
   </div>
 </div>
 
@@ -226,11 +212,10 @@ document.addEventListener("mousemove",e=>{
   document.documentElement.style.setProperty("--y",e.clientY+"px");
 });
 
-/* COUNTER ANIMATION */
+/* ANIMATION */
 function animate(id,target){
   const el=document.getElementById(id);
-  let start=0;
-  let t0=performance.now();
+  let start=0,t0=performance.now();
 
   function frame(t){
     let p=Math.min((t-t0)/1200,1);
@@ -240,13 +225,12 @@ function animate(id,target){
   requestAnimationFrame(frame);
 }
 
-/* VISITS (REAL DEVICE BASED) */
-let visits=localStorage.getItem("visits")||0;
-visits=parseInt(visits)+1;
+/* REAL VISITS (LOCAL ONLY - STABLE) */
+let visits=parseInt(localStorage.getItem("visits")||"0")+1;
 localStorage.setItem("visits",visits);
 animate("visits",visits);
 
-/* STABLE TIKTOK VALUES (ACCOUNT FIXED) */
+/* STABLE TIKTOK (NO BREAKS, NO FAKE APIs) */
 animate("followers",12800);
 animate("likes",340000);
 
